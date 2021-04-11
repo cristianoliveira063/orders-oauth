@@ -36,6 +36,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .accessTokenValiditySeconds(60 * 60 * 6)
 
                 .and()
+                .withClient("analytics")
+                .secret(passwordEncoder.encode("123"))
+                .authorizedGrantTypes("authorization_code")
+                .scopes("write", "read")
+                .redirectUris("https://aplicacao-cliente")
+
+                .and()
 
                 .withClient("orders")
                 .secret(passwordEncoder.encode("orders123"))
@@ -54,7 +61,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }
-
 
 
 }
